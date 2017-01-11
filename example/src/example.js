@@ -2,7 +2,7 @@
 
 import React from 'react'
 import ReactDOM from 'react-dom'
-import ReactTelephoneInput from 'react-telephone-input'
+import ReactTelephoneInput from '../../lib/ReactTelephoneInput.js';
 
 console.log('ReactTelephoneInput: ', ReactTelephoneInput);
 var App = React.createClass({
