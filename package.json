@@ -15,7 +15,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/mukeshsoni/react-telephone-input"
+    "url": "https://github.com/danieltimpone/react-telephone-input"
   },
   "keywords": [
     "react-component",
@@ -32,9 +32,9 @@
   "author": "Mukesh Soni",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/mukeshsoni/react-telephone-input/issues"
+    "url": "https://github.com/danieltimpone/react-telephone-input/issues"
   },
-  "homepage": "https://github.com/mukeshsoni/react-telephone-input",
+  "homepage": "https://github.com/danieltimpone/react-telephone-input",
   "devDependencies": {
     "babel-eslint": "^3.1.17",
     "babelify": "^6.3.0",
