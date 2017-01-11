@@ -176,6 +176,11 @@ function isNumberValid(inputNumber) {
             return `+${text}`;
         }
 
+        // If input doesn't match specified country
+        if (text.indexOf(this.state.selectedCountry.dialCode) !== 0) {
+            text = this.state.selectedCountry.dialCode + text;
+        }
+
         var formattedObject = reduce(pattern, function(acc, character) {
             if(acc.remainingText.length === 0) {
                 return acc;
@@ -291,10 +296,12 @@ function isNumberValid(inputNumber) {
 
             // we don't need to send the whole number to guess the country... only the first 6 characters are enough
             // the guess country function can then use memoization much more effectively since the set of input it gets has drastically reduced
-            if(!this.state.freezeSelection || this.state.selectedCountry.dialCode.length > inputNumber.length) {
-                newSelectedCountry = this.guessSelectedCountry(inputNumber.substring(0, 6));
-                freezeSelection = false;
-            }
+           
+            // Commented out because it's a huge pain
+            // if(!this.state.freezeSelection || this.state.selectedCountry.dialCode.length > inputNumber.length) {
+            //     newSelectedCountry = this.guessSelectedCountry(inputNumber.substring(0, 6));
+            //     freezeSelection = false;
+            // }
             // let us remove all non numerals from the input
             formattedNumber = this.formatNumber(inputNumber, newSelectedCountry.format);
         }
@@ -337,21 +344,24 @@ function isNumberValid(inputNumber) {
 
         // tiny optimization
         if(currentSelectedCountry.iso2 !== nextSelectedCountry.iso2) {
-            var dialCodeRegex = RegExp('^(\\+' + currentSelectedCountry.dialCode + ')|\\+');
-            var newNumber = this.state.formattedNumber.replace(dialCodeRegex, '+' + nextSelectedCountry.dialCode);
-            var formattedNumber = this.formatNumber(newNumber.replace(/\D/g, ''), nextSelectedCountry.format);
-
-            this.setState({
-                showDropDown: false,
+             this.setState({
                 selectedCountry: nextSelectedCountry,
-                freezeSelection: true,
-                formattedNumber: formattedNumber
-            }, function() {
-                this._cursorToEnd();
-                if(this.props.onChange) {
-                    this.props.onChange(formattedNumber, nextSelectedCountry);
-                }
-            });
+            }, function () {
+                var dialCodeRegex = RegExp('^(\\+' + currentSelectedCountry.dialCode + ')|\\+');
+                var newNumber = this.state.formattedNumber.replace(dialCodeRegex, '+' + nextSelectedCountry.dialCode);
+                var formattedNumber = this.formatNumber(newNumber.replace(/\D/g, ''), nextSelectedCountry.format);
+
+                this.setState({
+                    showDropDown: false,
+                    freezeSelection: true,
+                    formattedNumber: formattedNumber
+                }, function () {
+                    this._cursorToEnd();
+                    if (this.props.onChange) {
+                        this.props.onChange(formattedNumber, nextSelectedCountry);
+                    }
+                });
+            })
         } else {
           this.setState({showDropDown: false});
         }
