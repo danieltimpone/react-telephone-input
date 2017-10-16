@@ -3272,7 +3272,7 @@ module.exports = {
    allCountryCodes: allCountryCodes
 };
 
-},{}],"react-telephone-input":[function(require,module,exports){
+},{}],"react-telephone-input-danny-version":[function(require,module,exports){
 'use strict';
 
 // TODO - fix the onlyContries props. Currently expects that as an array of country object, but users should be able to send in array of country isos
@@ -3309,6 +3309,7 @@ var startsWith = require('lodash/string/startsWith');
 
 var React = require('react');
 var ReactDOM = require('react-dom');
+var PropTypes = require('prop-types');
 var onClickOutside = require('react-onclickoutside');
 var classNames = require('classnames');
 var countryData = require('./country_data.js');
@@ -3362,20 +3363,20 @@ var ReactTelephoneInput = React.createClass({
         }, this._mapPropsToState(this.props, true));
     },
     propTypes: {
-        value: React.PropTypes.string,
-        initialValue: React.PropTypes.string,
-        autoFormat: React.PropTypes.bool,
-        defaultCountry: React.PropTypes.string,
-        onlyCountries: React.PropTypes.arrayOf(React.PropTypes.object),
-        preferredCountries: React.PropTypes.arrayOf(React.PropTypes.string),
-        classNames: React.PropTypes.string,
-        inputId: React.PropTypes.string,
-        onChange: React.PropTypes.func,
-        onEnterKeyPress: React.PropTypes.func,
-        onBlur: React.PropTypes.func,
-        onFocus: React.PropTypes.func,
-        disabled: React.PropTypes.bool,
-        pattern: React.PropTypes.string
+        value: PropTypes.string,
+        initialValue: PropTypes.string,
+        autoFormat: PropTypes.bool,
+        defaultCountry: PropTypes.string,
+        onlyCountries: PropTypes.arrayOf(PropTypes.object),
+        preferredCountries: PropTypes.arrayOf(PropTypes.string),
+        classNames: PropTypes.string,
+        inputId: PropTypes.string,
+        onChange: PropTypes.func,
+        onEnterKeyPress: PropTypes.func,
+        onBlur: PropTypes.func,
+        onFocus: PropTypes.func,
+        disabled: PropTypes.bool,
+        pattern: PropTypes.string
     },
     getDefaultProps: function getDefaultProps() {
         return {
@@ -3860,4 +3861,4 @@ var ReactTelephoneInput = React.createClass({
 exports.ReactTelephoneInput = ReactTelephoneInput;
 exports['default'] = onClickOutside(ReactTelephoneInput);
 
-},{"./country_data.js":91,"classnames":undefined,"lodash/array/findIndex":2,"lodash/array/first":3,"lodash/array/rest":5,"lodash/collection/filter":6,"lodash/collection/findWhere":8,"lodash/collection/map":9,"lodash/collection/reduce":10,"lodash/collection/some":11,"lodash/function/debounce":13,"lodash/function/memoize":14,"lodash/lang/isEqual":78,"lodash/object/assign":83,"lodash/string/startsWith":87,"lodash/string/trim":88,"react":undefined,"react-dom":undefined,"react-onclickoutside":undefined}]},{},[]);
+},{"./country_data.js":91,"classnames":undefined,"lodash/array/findIndex":2,"lodash/array/first":3,"lodash/array/rest":5,"lodash/collection/filter":6,"lodash/collection/findWhere":8,"lodash/collection/map":9,"lodash/collection/reduce":10,"lodash/collection/some":11,"lodash/function/debounce":13,"lodash/function/memoize":14,"lodash/lang/isEqual":78,"lodash/object/assign":83,"lodash/string/startsWith":87,"lodash/string/trim":88,"prop-types":undefined,"react":undefined,"react-dom":undefined,"react-onclickoutside":undefined}]},{},[]);
