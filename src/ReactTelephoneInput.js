@@ -19,6 +19,7 @@ var trim = require('lodash/string/trim');
 var startsWith = require('lodash/string/startsWith');
 
 var React = require('react');
+var createReactClass = require('create-react-class');
 var ReactDOM = require('react-dom');
 var PropTypes = require('prop-types');
 var onClickOutside = require('react-onclickoutside');
@@ -56,7 +57,9 @@ function isNumberValid(inputNumber) {
     });
 }
 
-  export var ReactTelephoneInput = React.createClass({
+export var ReactTelephoneInput = createReactClass({
+    displayName: 'ReactTelephoneInput',
+
     getInitialState() {
         var preferredCountries = this.props.preferredCountries.map(
             iso2 => iso2Lookup.hasOwnProperty(iso2) ? allCountries[iso2Lookup[iso2]] : null
@@ -74,6 +77,7 @@ function isNumberValid(inputNumber) {
             this._mapPropsToState(this.props, true)
         );
     },
+
     propTypes: {
         value: PropTypes.string,
         initialValue: PropTypes.string,
@@ -90,6 +94,7 @@ function isNumberValid(inputNumber) {
         disabled: PropTypes.bool,
         pattern: PropTypes.string,
     },
+
     getDefaultProps() {
         return {
             autoFormat: true,
@@ -103,12 +108,15 @@ function isNumberValid(inputNumber) {
             placeholder: '+1 (702) 123-4567'
         };
     },
+
     getNumber() {
         return this.state.formattedNumber !== '+' ? this.state.formattedNumber : '';
     },
+
     getValue() {
         return this.getNumber();
     },
+
     componentDidMount() {
         document.addEventListener('keydown', this.handleKeydown);
 
@@ -117,15 +125,19 @@ function isNumberValid(inputNumber) {
             this.props.onChange(this.state.formattedNumber, this.state.selectedCountry);
         }
     },
+
     shouldComponentUpdate(nextProps, nextState) {
         return !isEqual(nextProps, this.props) || !isEqual(nextState, this.state);
     },
+
     componentWillReceiveProps(nextProps) {
         this.setState(this._mapPropsToState(nextProps));
     },
+
     componentWillUnmount() {
         document.removeEventListener('keydown', this.handleKeydown);
     },
+
     scrollTo(country, middle) {
         if(!country) {
             return;
@@ -166,6 +178,7 @@ function isNumberValid(inputNumber) {
             container.scrollTop = newScrollTop - heightDifference;
         }
     },
+
     formatNumber(text, pattern) {
         if(!text || text.length === 0) {
             return '+';
@@ -216,6 +229,7 @@ function isNumberValid(inputNumber) {
             }
         }
     },
+
     // memoize results based on the first 5/6 characters. That is all that matters
     guessSelectedCountry: memoize(function(inputNumber) {
         var secondBestGuess = findWhere(allCountries, {iso2: this.props.defaultCountry}) || this.props.onlyCountries[0];
@@ -257,9 +271,11 @@ function isNumberValid(inputNumber) {
 
         return bestGuess;
     }),
+
     getElement(index) {
         return ReactDOM.findDOMNode(this.refs[`flag_no_${index}`]);
     },
+
     handleFlagDropdownClick() {
         if (this.props.disabled) {
           return;
@@ -276,6 +292,7 @@ function isNumberValid(inputNumber) {
             }
         });
     },
+
     handleInput(event) {
         var formattedNumber = '+', newSelectedCountry = this.state.selectedCountry, freezeSelection = this.state.freezeSelection;
 
@@ -336,9 +353,11 @@ function isNumberValid(inputNumber) {
         });
 
     },
+
     handleInputClick() {
         this.setState({showDropDown: false});
     },
+
     handleFlagItemClick(country) {
         var currentSelectedCountry = this.state.selectedCountry;
         var nextSelectedCountry = findWhere(this.props.onlyCountries, country);
@@ -367,6 +386,7 @@ function isNumberValid(inputNumber) {
           this.setState({showDropDown: false});
         }
     },
+
     handleInputFocus() {
         // trigger parent component's onFocus handler
         if(typeof this.props.onFocus === 'function') {
@@ -375,6 +395,7 @@ function isNumberValid(inputNumber) {
 
         this._fillDialCode();
     },
+
     _mapPropsToState(props, firstCall = false) {
         let inputNumber;
 
@@ -399,12 +420,14 @@ function isNumberValid(inputNumber) {
             formattedNumber: formattedNumber
         }
     },
+
     _fillDialCode() {
         // if the input is blank, insert dial code of the selected country
         if(this.refs.numberInput.value === '+') {
             this.setState({formattedNumber: '+' + this.state.selectedCountry.dialCode});
         }
     },
+
     _getHighlightCountryIndex(direction) {
         // had to write own function because underscore does not have findIndex. lodash has it
         var highlightCountryIndex = this.state.highlightCountryIndex + direction;
@@ -416,6 +439,7 @@ function isNumberValid(inputNumber) {
 
         return highlightCountryIndex;
     },
+
     // memoize search results... caching all the way
     _searchCountry: memoize(function(queryString) {
         if(!queryString || queryString.length === 0) {
@@ -427,6 +451,7 @@ function isNumberValid(inputNumber) {
         }, this);
         return probableCountries[0];
     }),
+
     searchCountry() {
         const probableCandidate = this._searchCountry(this.state.queryString) || this.props.onlyCountries[0];
         const probableCandidateIndex = findIndex(this.props.onlyCountries, probableCandidate) + this.state.preferredCountries.length;
@@ -438,6 +463,7 @@ console.log('probableCandidateIndex', probableCandidateIndex)
             highlightCountryIndex: probableCandidateIndex
         });
     },
+
     handleKeydown(event) {
         if(!this.state.showDropDown) {
            return;
@@ -480,11 +506,13 @@ console.log('probableCandidateIndex', probableCandidateIndex)
                 }
         }
     },
+
     handleInputKeyDown(event) {
         if(event.which === keys.ENTER) {
             this.props.onEnterKeyPress(event);
         }
     },
+
     handleClickOutside() {
         if(this.state.showDropDown) {
             this.setState({
@@ -492,6 +520,7 @@ console.log('probableCandidateIndex', probableCandidateIndex)
             });
         }
     },
+
     getCountryDropDownList() {
         var countryDropDownList = map(this.state.preferredCountries.concat(this.props.onlyCountries), function(country, index) {
             let itemClasses = classNames({
@@ -532,6 +561,7 @@ console.log('probableCandidateIndex', probableCandidateIndex)
             </ul>
         );
     },
+
     getFlagStyle() {
         return {
             width: 16,
@@ -539,11 +569,13 @@ console.log('probableCandidateIndex', probableCandidateIndex)
             backgroundImage: `url(${this.props.flagsImagePath})`
         };
     },
+
     handleInputBlur() {
       if(typeof this.props.onBlur === 'function') {
         this.props.onBlur(this.state.formattedNumber, this.state.selectedCountry);
       }
     },
+
     render() {
         var arrowClasses = classNames({
             'arrow': true,
@@ -590,7 +622,7 @@ console.log('probableCandidateIndex', probableCandidateIndex)
                 </div>
             </div>
         );
-    }
+    },
 });
 
 export default onClickOutside(ReactTelephoneInput);

@@ -5,7 +5,8 @@ import ReactDOM from 'react-dom'
 import ReactTelephoneInput from '../../lib/ReactTelephoneInput.js';
 
 console.log('ReactTelephoneInput: ', ReactTelephoneInput);
-var App = React.createClass({
+
+class App extends React.Component {
     render() {
         return (
             <div>
@@ -13,6 +14,6 @@ var App = React.createClass({
             </div>
         );
     }
-});
+}
 
 ReactDOM.render(<App />, document.getElementById('app'));
