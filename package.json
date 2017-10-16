@@ -24,10 +24,7 @@
     "react"
   ],
   "browserify": {
-    "transform": [
-      "babelify",
-      "lessify"
-    ]
+    "transform": ["babelify", "lessify"]
   },
   "author": "Mukesh Soni",
   "license": "MIT",
@@ -55,7 +52,7 @@
     "create-react-class": "^15.6.2",
     "lodash": "^3.10.1",
     "prop-types": "^15.6.0",
-    "react-onclickoutside": "5.3.1"
+    "react-onclickoutside": "6.6.0"
   },
   "peerDependencies": {
     "react": ">=0.14.0 || ^15.0.0",
