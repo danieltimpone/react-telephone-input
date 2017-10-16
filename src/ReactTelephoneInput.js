@@ -20,6 +20,7 @@ var startsWith = require('lodash/string/startsWith');
 
 var React = require('react');
 var ReactDOM = require('react-dom');
+var PropTypes = require('prop-types');
 var onClickOutside = require('react-onclickoutside');
 var classNames = require('classnames');
 var countryData = require('./country_data.js')
@@ -74,20 +75,20 @@ function isNumberValid(inputNumber) {
         );
     },
     propTypes: {
-        value: React.PropTypes.string,
-        initialValue: React.PropTypes.string,
-        autoFormat: React.PropTypes.bool,
-        defaultCountry: React.PropTypes.string,
-        onlyCountries: React.PropTypes.arrayOf(React.PropTypes.object),
-        preferredCountries: React.PropTypes.arrayOf(React.PropTypes.string),
-        classNames: React.PropTypes.string,
-	inputId: React.PropTypes.string,
-        onChange: React.PropTypes.func,
-        onEnterKeyPress: React.PropTypes.func,
-        onBlur: React.PropTypes.func,
-        onFocus: React.PropTypes.func,
-        disabled: React.PropTypes.bool,
-        pattern: React.PropTypes.string,
+        value: PropTypes.string,
+        initialValue: PropTypes.string,
+        autoFormat: PropTypes.bool,
+        defaultCountry: PropTypes.string,
+        onlyCountries: PropTypes.arrayOf(PropTypes.object),
+        preferredCountries: PropTypes.arrayOf(PropTypes.string),
+        classNames: PropTypes.string,
+	inputId: PropTypes.string,
+        onChange: PropTypes.func,
+        onEnterKeyPress: PropTypes.func,
+        onBlur: PropTypes.func,
+        onFocus: PropTypes.func,
+        disabled: PropTypes.bool,
+        pattern: PropTypes.string,
     },
     getDefaultProps() {
         return {
